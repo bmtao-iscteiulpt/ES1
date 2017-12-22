@@ -6,6 +6,7 @@ import java.util.List;
 import org.uma.jmetal.problem.impl.AbstractDoubleProblem;
 import org.uma.jmetal.solution.DoubleSolution;
 
+@SuppressWarnings("serial")
 public class AntiSpamFilterProblem extends AbstractDoubleProblem {
 
 	AutomaticCalculator calc = new AutomaticCalculator(); // ler os ficheiros SPAM HAM
@@ -35,8 +36,7 @@ public class AntiSpamFilterProblem extends AbstractDoubleProblem {
 	    setUpperLimit(upperLimit);
 	  }
 
-	  public void evaluate(DoubleSolution solution){
-	    double aux, xi, xj;
+	  public void evaluate(DoubleSolution solution) {
 	    double[] fx = new double[getNumberOfObjectives()];
 	    double[] x = new double[getNumberOfVariables()];
 	    for (int i = 0; i < solution.getNumberOfVariables(); i++) {

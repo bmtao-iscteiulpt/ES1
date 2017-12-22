@@ -3,22 +3,15 @@ package antiSpamFilter;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ContainerEvent;
-import java.awt.event.ContainerListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Random;
-import java.util.Set;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -28,27 +21,18 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
-import org.apache.commons.math3.util.MultidimensionalCounter.Iterator;
 
+@SuppressWarnings("serial")
 public class GUI extends JFrame{
 	
 	private JCheckBox checkBoxConfAuto;
 	private JCheckBox checkBoxConfManual;
 	private Object[] tableLines;
-	private Object[] test;
 	
 	ArrayList<Object> a = new ArrayList<Object>();
 	Map<String, Double> h = new HashMap<String, Double>();
 	
 	private JFrame frame;
-	private JCheckBox checkBoxPathRules;
-	private JCheckBox checkBoxPathHam;
-	private JCheckBox checkBoxPathSpam;
-	private JTextField textFPConfAuto;
-	private JTextField textFNConfAuto;
-	private JTextField textFPConfManual;
-	private JTextField textFNConfManual;
-	
 	private JTable table;
 	
 	private JTextField textFieldPathRules;
@@ -57,18 +41,13 @@ public class GUI extends JFrame{
 	private JTextField textFP;
 	private JTextField textFN;
 
-	
-	private File fileRules = new File("rules.cf");
 	private File fileHam = new File("ham.log");
 	private File fileSpam = new File("spam.log");
-	
-	@SuppressWarnings("unused")
-	private Reader r = null;
 	
 	public GUI() {
 		addContentInterface();
 		startInterface();
-		checkBox();
+//		checkBox();
 	}
 
 	private void addContentInterface() {
@@ -78,20 +57,20 @@ public class GUI extends JFrame{
 		frame.setLocationRelativeTo(null);
 		frame.getContentPane().setLayout(null);
 		
-		JLabel labelConfAuto = new JLabel("Configura√ß√£o Autom√°tica");
+		JLabel labelConfAuto = new JLabel("ConfiguraÁ„o Autom·tica");
 		labelConfAuto.setBounds(165, 16, 184, 20);
 		frame.getContentPane().add(labelConfAuto);
 		
-		JLabel labelConfManual = new JLabel("Configura√ß√£o Manual");
+		JLabel labelConfManual = new JLabel("ConfiguraÁ„o Manual");
 		labelConfManual.setBounds(439, 16, 184, 20);
 		frame.getContentPane().add(labelConfManual);
 		
 		checkBoxConfAuto = new JCheckBox("");
-		checkBoxConfAuto.setBounds(590, 12, 29, 29);
+		checkBoxConfAuto.setBounds(346, 12, 29, 29);
 		frame.getContentPane().add(checkBoxConfAuto);
 		
 		checkBoxConfManual = new JCheckBox("");
-		checkBoxConfManual.setBounds(346, 12, 29, 29);
+		checkBoxConfManual.setBounds(590, 12, 29, 29);
 		frame.getContentPane().add(checkBoxConfManual);
 		
 		JLabel labelPathRules = new JLabel("Path rules.cf");
@@ -106,14 +85,21 @@ public class GUI extends JFrame{
 		labelPathSpam.setBounds(110, 346, 98, 20);
 		frame.getContentPane().add(labelPathSpam);
 		
+		
+		//textFieldPathRules = new JTextField("");
+		//Para facilitar teste de cÛdigo
 		textFieldPathRules = new JTextField("/Users/Calberto/git/ES1-2017-IC2--85/rules.cf");
 		textFieldPathRules.setBounds(200, 97, 200, 29);
 		frame.getContentPane().add(textFieldPathRules);
 		
+		//textFieldPathHam = new JTextField("");
+		//Para facilitar teste de cÛdigo
 		textFieldPathHam = new JTextField("/Users/Calberto/git/ES1-2017-IC2--85/ham.log");
 		textFieldPathHam.setBounds(200, 220, 200, 29);
 		frame.getContentPane().add(textFieldPathHam);
 		
+		//textFieldPathSpam = new JTextField("");
+		//Para facilitar teste de cÛdigo
 		textFieldPathSpam = new JTextField("/Users/Calberto/git/ES1-2017-IC2--85/spam.log");
 		textFieldPathSpam.setBounds(200, 342, 200, 29);
 		frame.getContentPane().add(textFieldPathSpam);
@@ -140,12 +126,7 @@ public class GUI extends JFrame{
 				if(startLine.length > 1){
 					dataLine[1] = new Double(startLine[1]);
 				}else{
-					Double max = 5.0;
-					Double min = -5.0;
-					Random random = new Random(); 
-					double value1 = min + (max - min) * random.nextDouble();
-					dataLine[1] = value1;
-					//dataLine[1] = 0.0;
+					dataLine[1] = 0.0;
 				}
 				tableModel.addRow(dataLine);
 			}
@@ -166,19 +147,6 @@ public class GUI extends JFrame{
 				Object data = model.getValueAt(row, column);
 				System.out.println(data.toString());
 				
-			}
-		});
-		
-		table.addContainerListener(new ContainerListener() {
-
-			@Override
-			public void componentRemoved(ContainerEvent e) {
-				saveToHashMap(table.getModel(), h);
-			}
-
-			@Override
-			public void componentAdded(ContainerEvent e) {
-			
 			}
 		});
 		
@@ -205,8 +173,9 @@ public class GUI extends JFrame{
 		textFN.setBounds(560, 291, 146, 26);
 		frame.getContentPane().add(textFN);
 
-		//BOT√ÉO
-		JButton buttonGerarConfManual = new JButton("GERAR CONFIGURA√á√ÉO");
+		fillHashMap();
+		
+		JButton buttonGerarConfManual = new JButton("GERAR CONFIGURA«√O");
 		buttonGerarConfManual.setBounds(508, 330, 221, 29);
 		frame.getContentPane().add(buttonGerarConfManual);
 		
@@ -214,40 +183,34 @@ public class GUI extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				fillHashMap();
+				if(checkBoxConfAuto.isSelected()) {
+					@SuppressWarnings("unused")
+					AntiSpamFilterAutomaticConfiguration a = new AntiSpamFilterAutomaticConfiguration();
+				} else if(checkBoxConfManual.isSelected()) {
+				
 				String a = textFieldPathRules.getText();
 				String b = textFieldPathHam.getText();
 				String c = textFieldPathSpam.getText();
+				
+				//Tem de ser adaptado a cada computador
 				if(a.equals("/Users/Calberto/git/ES1-2017-IC2--85/rules.cf") && b.equals("/Users/Calberto/git/ES1-2017-IC2--85/ham.log")){
 					Email eHam = new Email(fileHam, h);
 					eHam.evaluate();
 					
 					textFP.setText(String.valueOf(eHam.getFP()));
 				}
+				//Tem de ser adaptado a cada computador
 				if(a.equals("/Users/Calberto/git/ES1-2017-IC2--85/rules.cf") && c.equals("/Users/Calberto/git/ES1-2017-IC2--85/spam.log")){
 					Email eSpam = new Email(fileSpam, h);
 					eSpam.evaluate();
 					
 					textFN.setText(String.valueOf(eSpam.getFN()));
-				}
-				if(a.equals("/Users/Calberto/git/ES1-2017-IC2--85/rules.cf") &&
-						b.equals("/Users/Calberto/git/ES1-2017-IC2--85/ham.log") &&
-						c.equals("/Users/Calberto/git/ES1-2017-IC2--85/spam.log")){
-					Email eHam = new Email(fileHam, h);
-					eHam.evaluate();
-					System.out.println(" ");
-					Email eSpam = new Email(fileSpam, h);
-					eSpam.evaluate();
-					
-					textFP.setText(String.valueOf(eHam.getFP()));
-					//textFN.setText(String.valueOf(eSpam.getFN()));
-				}
-		
+				} }
 			}
 		});
 		
-		JButton buttonGravarConfManual = new JButton("GRAVAR");
-		buttonGravarConfManual.setBounds(568, 375, 115, 29);
+		JButton buttonGravarConfManual = new JButton("GRAVAR PESOS");
+		buttonGravarConfManual.setBounds(568, 375, 130, 29);
 		frame.getContentPane().add(buttonGravarConfManual);
 
 		buttonGravarConfManual.addActionListener(new ActionListener() {
@@ -255,13 +218,22 @@ public class GUI extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				for(int i=0; i < table.getRowCount(); i++){		//NAO FUNCIONA
-					Object d = tableModel.getValueAt(i, 1);
-					if (d instanceof Double) {
-						System.out.println(((Double) d).doubleValue());
+				for(int r = 0; r != table.getRowCount(); r++){
+					String s = (String) table.getValueAt(r, 0);
+					Object s1 = table.getValueAt(r, 1);
+					
+					System.out.println(s);
+					
+					if(s1 instanceof String) {
+						String s2 = (String) String.valueOf(table.getValueAt(r, 1));
+						
+						System.out.println(((String) s2).toString());
+						h.put(s, Double.parseDouble(s2));
+					} else if (s1 instanceof Double) {
+						System.out.println(((Double) s1).doubleValue());
+						h.put(s, ((Double) s1).doubleValue());
 					}
 				}
-					
 			}	
 		});
 		
@@ -269,46 +241,10 @@ public class GUI extends JFrame{
 	
 	public void fillHashMap() {
 
-		System.out.println(table.getRowCount());
+		//System.out.println(table.getRowCount());
 		
 		for (int i = 0; i < table.getRowCount(); i++) {
 			h.put((String)(table.getValueAt(i,0)), (Double) table.getValueAt(i, 1));
-		}
-		
-		Set keys = h.keySet();
-		for (java.util.Iterator i = keys.iterator(); i.hasNext(); ) {
-		       String key = (String) i.next();
-		       Double value = h.get(key);
-		       //System.out.println(key + " = " + value);
-		}
-	}
-
-	public void readRulesFromHam(){
-		try{
-			File file = new File("ham.log");
-			FileReader reader = new FileReader(file);
-			BufferedReader buffer = new BufferedReader(reader);
-			
-			test = buffer.lines().toArray();
-			
-			for(int i=0; i<test.length; i++){
-				String line = test[i].toString().trim();
-				String[] startLine = line.split(" ");
-				Object[] dataLine = new Object[2];
-				dataLine[i] = startLine[i];
-				if(startLine.length > 1){
-					Double max = 5.0;
-					Double min = -5.0;
-					Random random = new Random(); 
-					double value1 = min + (max - min) *random.nextDouble();
-					dataLine[1] = value1;
-				}
-				//System.out.println(dataLine[i]);
-				//tableModel.addRow(dataLine);
-			}
-			buffer.close();
-		}catch (IOException ex) {
-			ex.printStackTrace();
 		}
 	}
 	
@@ -316,38 +252,21 @@ public class GUI extends JFrame{
 		frame.setVisible(true);
 	}
 	
-	//CRIAR PESOS ALEAT√ìRIOS E FAZER A SOMA DOS PESOS
-	private void checkBox() {
-		int []v = new int[5];
-		double value = 0.0;
-		for(int i=0; i<v.length; i++) {
-			Double max = 5.0;
-			Double min = -5.0;
-			Random random = new Random(); 
-			double value1 = min + (max - min) *random.nextDouble();
-			//System.out.println("Valor "+ i + ": " + value1);
-			value = value + value1;
-		}
-		//System.out.println("Resultado final:" + value);
-	}
-
-	//N„o funciona bem
-	public void saveToHashMap(TableModel table, Map<String, Double> h) {
-		h.clear();
-		System.out.println(table);
-		
-		for(int r = 0; r != table.getRowCount(); r++) {
-			String s = (String) table.getValueAt(r,  0);
-			String b = (String) String.valueOf(table.getValueAt(r, 1));
-			
-			h.put(s, Double.parseDouble(b));
-		}
-	}
+//	private void checkBox() {
+//		int []v = new int[5];
+//		double value = 0.0;
+//		for(int i=0; i<v.length; i++) {
+//			Double max = 5.0;
+//			Double min = -5.0;
+//			Random random = new Random(); 
+//			double value1 = min + (max - min) *random.nextDouble();
+//			value = value + value1;
+//		}
+//	}
 	
 	public static void main(String[] args) {
 		@SuppressWarnings("unused")
 		GUI g = new GUI();
-		Rules r = new Rules();
 	}
 	
 }
