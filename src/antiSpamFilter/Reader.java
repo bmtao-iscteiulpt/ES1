@@ -6,9 +6,9 @@ import java.util.Scanner;
 
 public class Reader {
 
-	private File fileName;
+	private String fileName;
 
-	public Reader(File fileName) {
+	public Reader(String fileName) {
 		this.fileName = fileName;
 		readFile();
 	}
@@ -17,21 +17,17 @@ public class Reader {
 		Scanner sc = null;
 		String s = null;
 		
-		try {
-			sc = new Scanner(fileName, "UTF-8");
-			
-			System.out.println(fileName.getName() + ":");
-			System.out.println("\n");
-			
-			while(sc.hasNextLine()) {
-				s = sc.nextLine();
-				System.out.println(s);
-			}
-			
-			sc.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+		sc = new Scanner(fileName);
+		
+		System.out.println(fileName + ":");
+		System.out.println("\n");
+		
+		while(sc.hasNextLine()) {
+			s = sc.nextLine();
+			System.out.println(s);
 		}
+		
+		sc.close();
 	}
 	
 }

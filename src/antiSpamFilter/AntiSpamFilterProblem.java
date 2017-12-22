@@ -1,5 +1,5 @@
 package antiSpamFilter;
-// cOMENTARIO
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,9 +8,14 @@ import org.uma.jmetal.solution.DoubleSolution;
 
 public class AntiSpamFilterProblem extends AbstractDoubleProblem {
 
+	AutomaticCalculator calc = new AutomaticCalculator(); // ler os ficheiros SPAM HAM
+    // para cada mensage estabelece a ligaçao ao vector X, i.e o indice
+	
 	  public AntiSpamFilterProblem() {
 	    // 10 variables (anti-spam filter rules) by default 
-	    this(10);
+	    this(335);
+	    
+	    //calc.setupComputingFPFN();
 	  }
 
 	  public AntiSpamFilterProblem(Integer numberOfVariables) {
@@ -38,16 +43,9 @@ public class AntiSpamFilterProblem extends AbstractDoubleProblem {
 	      x[i] = solution.getVariableValue(i) ;
 	    }
 
-	    fx[0] = 0.0;
-	    for (int var = 0; var < solution.getNumberOfVariables() - 1; var++) {
-		  fx[0] += Math.abs(x[0]); // Example for testing
-	    }
+	    fx[0] = calc.evaluateFP(x);  // x varia aqui mas as mensagens foram definidas aquando do construtor
+	    fx[1] = calc.evaluateFN(x);
 	    
-	    fx[1] = 0.0;
-	    for (int var = 0; var < solution.getNumberOfVariables(); var++) {
-	    	fx[1] += Math.abs(x[1]); // Example for testing
-	    }
-
 	    solution.setObjective(0, fx[0]);
 	    solution.setObjective(1, fx[1]);
 	  }
