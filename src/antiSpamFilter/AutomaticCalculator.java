@@ -42,7 +42,7 @@ public class AutomaticCalculator {
 				System.out.println("FP: " + FP);
 			}
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			System.out.println("Erro - Leitura de ficheiro inválida!");
 		}	
 		return FP;
 	}
@@ -76,7 +76,7 @@ public class AutomaticCalculator {
 				System.out.println("FN: " + FN);
 			}
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			System.out.println("Erro - Leitura de ficheiro inválida!");
 		}	
 		return FN;
 	}
@@ -96,7 +96,7 @@ public class AutomaticCalculator {
 				i++;
 			}
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			System.out.println("Erro - Preenchimento com dados inválida!");
 		}
 	}
 

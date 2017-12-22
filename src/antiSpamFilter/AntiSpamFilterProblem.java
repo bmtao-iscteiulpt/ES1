@@ -15,8 +15,6 @@ public class AntiSpamFilterProblem extends AbstractDoubleProblem {
 	  public AntiSpamFilterProblem() {
 	    // 10 variables (anti-spam filter rules) by default 
 	    this(335);
-	    
-	    //calc.setupComputingFPFN();
 	  }
 
 	  public AntiSpamFilterProblem(Integer numberOfVariables) {

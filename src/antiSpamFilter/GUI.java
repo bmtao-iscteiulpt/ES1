@@ -132,7 +132,7 @@ public class GUI extends JFrame{
 			}
 			buffer.close();
 		}catch (IOException ex) {
-			ex.printStackTrace();
+			System.out.println("Erro - Falha no preenchimento da tabela" );
 		}
 
 		table.setPreferredScrollableViewportSize(new Dimension(500,500));
@@ -240,9 +240,6 @@ public class GUI extends JFrame{
 	}
 	
 	public void fillHashMap() {
-
-		//System.out.println(table.getRowCount());
-		
 		for (int i = 0; i < table.getRowCount(); i++) {
 			h.put((String)(table.getValueAt(i,0)), (Double) table.getValueAt(i, 1));
 		}
@@ -251,18 +248,6 @@ public class GUI extends JFrame{
 	private void startInterface() {
 		frame.setVisible(true);
 	}
-	
-//	private void checkBox() {
-//		int []v = new int[5];
-//		double value = 0.0;
-//		for(int i=0; i<v.length; i++) {
-//			Double max = 5.0;
-//			Double min = -5.0;
-//			Random random = new Random(); 
-//			double value1 = min + (max - min) *random.nextDouble();
-//			value = value + value1;
-//		}
-//	}
 	
 	public static void main(String[] args) {
 		@SuppressWarnings("unused")
