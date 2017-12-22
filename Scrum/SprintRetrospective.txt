@@ -1,0 +1,14 @@
+"Sprint Retrospective"
+
+Durante a execução do trabalho denotaram-se pontos positivos e negativos em cada um dos sprints realizados.
+Como primeiro ponto positivo considerou-se o facto se de que durante todos os sprints o grupo reuniu-se periodicamente para perceber o desenvolvimento do código e que problemas precisavam de ser resolvidos. Estas reuniões periódicas permitiram que o grupo estivesse todo a par do trabalho que estava a ser desenvolvido.
+
+E, no final de cada sprint, o grupo reunia-se com o intuito de mostrar, com a ajuda dos developers, as novas funcionalidades adquiridas e como estas funcionavam.
+
+O último ponto positivo que se considerou relevante e foi bem conseguido consiste na boa distribuição de tarefas. Cada tarefa foi bem distribuída, fazendo com que cada elemento do grupo conseguisse participar no desenvolvimento do trabalho.
+
+Não obstante, também existiram pontos negativos. Primeiramente, denotou-se que apesar das tarefas terem sido bem distribuídas houve ocasiões em que os objetivos definidos no sprint não foram concretizados.
+
+Como outro ponto negativo considerou-se que muitas vezes o Trello não foi atualizado à medida que o trabalho ia sendo desenvolvido, não ficando registadas, em algumas situações, as datas corretas de cada fase do projeto.
+
+Em suma, durante a execução do trabalho foram realizados dois sprints com duração de 2 semanas cada, o primeiro focando-se maioritariamente na criação e configuração da interface gráfica e o segundo no desenvolvimento da configuração automática e manual do projeto.
