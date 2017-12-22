@@ -1,1 +1,9 @@
+O código criado funciona bem na Configuração Automática e na Configuração Manual. 
+No entanto, esta segunda configuração só fará sentido ser utilizada depois de obtermos 
+resultados com a Configuração Automático e tal ainda não é possível. Apesar do ficheiro 
+com os resultados ser criado, estes não são facilmente interpretados e não é possível criar 
+o gráfico que serviria de apoio à Configuração Manual. Assim, esta configuração é feita com 
+valores pressupostos por nós e não com valores que otimizem realmente o software. 
+Os JUnit tests não foram implementados o que é necessário para que a inspeção de código seja 
+muito mais viável. 
 

@@ -1,1 +1,4 @@
-
+O teste coverage foi realizado sem recorrer ao uso de JUnit tests. 
+Foi feito correndo a aplicação em Configuração Manual. O resultado 
+apresentado foi o melhor resultado que conseguimos obter alterando 
+os pesos das regras na Configuração Manual.

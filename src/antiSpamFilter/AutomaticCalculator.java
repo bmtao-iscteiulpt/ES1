@@ -2,13 +2,9 @@ package antiSpamFilter;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-
-import javax.swing.table.TableModel;
 
 	/*
 	 * Classe para calcular e contabilizar número de Falsos Positivos e Falsos Negativos - Configuração Automática
