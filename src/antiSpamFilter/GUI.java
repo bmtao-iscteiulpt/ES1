@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,6 +29,7 @@ public class GUI extends JFrame{
 	private JCheckBox checkBoxConfAuto;
 	private JCheckBox checkBoxConfManual;
 	private Object[] tableLines;
+	private String separator = " ";
 	
 	ArrayList<Object> a = new ArrayList<Object>();
 	Map<String, Double> h = new HashMap<String, Double>();
@@ -41,6 +43,7 @@ public class GUI extends JFrame{
 	private JTextField textFP;
 	private JTextField textFN;
 
+	private File fileRules = new File("rules.cf");
 	private File fileHam = new File("ham.log");
 	private File fileSpam = new File("spam.log");
 	
@@ -234,10 +237,34 @@ public class GUI extends JFrame{
 						h.put(s, ((Double) s1).doubleValue());
 					}
 				}
+				
+				String nomeFicheiro = fileRules.getName();
+				String nomeFicheiroSave = nomeFicheiro;
+				tableToFile(nomeFicheiroSave);
 			}	
 		});
 		
 	}
+	
+	public void tableToFile(String nomeFicheiro) {
+		try {
+			File ficheiro = new File(nomeFicheiro);
+			TableModel model = table.getModel();
+			FileWriter fw = new FileWriter(ficheiro);
+			
+			for (int i = 0; i < model.getRowCount(); i++) {
+				for (int j = 0; j < model.getColumnCount(); j++) {
+					fw.write(model.getValueAt(i, j).toString()+separator);
+				}
+				fw.write("\n");
+			}
+			
+			fw.close();
+		} catch (IOException ex) {
+			System.out.println("Erro - Problema na escrita do ficheiro: " + nomeFicheiro);
+		}
+	}
+	
 	
 	public void fillHashMap() {
 		for (int i = 0; i < table.getRowCount(); i++) {
