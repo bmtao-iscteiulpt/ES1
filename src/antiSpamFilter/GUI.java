@@ -23,6 +23,9 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+	/*
+	 * Classe da Interface Gráfica do projecto
+	 */
 @SuppressWarnings("serial")
 public class GUI extends JFrame{
 	
@@ -47,12 +50,19 @@ public class GUI extends JFrame{
 	private File fileHam = new File("ham.log");
 	private File fileSpam = new File("spam.log");
 	
+	/*
+	 * Construtor da classe GUI - chama de imediato os métodos:
+	 * 	addContentInterface() - método que constroi a interface gráfica
+	 * 	startInterface() - método que inicia a interface gráfica 
+	 */
 	public GUI() {
 		addContentInterface();
 		startInterface();
-//		checkBox();
 	}
 
+	/*
+	 * Método responsável pela construção da Interface Gráfica
+	 */
 	private void addContentInterface() {
 		frame = new JFrame();
 		frame.setSize(850, 470);
@@ -246,6 +256,10 @@ public class GUI extends JFrame{
 		
 	}
 	
+	/*
+	 * Método que escreve no ficheiro "rules.cf" peso atuais com quais a Configuração Manual
+	 * foi efectuada no momento.
+	 */
 	public void tableToFile(String nomeFicheiro) {
 		try {
 			File ficheiro = new File(nomeFicheiro);
@@ -265,17 +279,26 @@ public class GUI extends JFrame{
 		}
 	}
 	
-	
+	/*
+	 * Método para preencher o Map<String, Double> - Map<Regra, Peso>
+	 * Peso atribuído com valores obtidos manualmente
+	 */
 	public void fillHashMap() {
 		for (int i = 0; i < table.getRowCount(); i++) {
 			h.put((String)(table.getValueAt(i,0)), (Double) table.getValueAt(i, 1));
 		}
 	}
 	
+	/*
+	 * Método que inicia a Interface Gráfica
+	 */
 	private void startInterface() {
 		frame.setVisible(true);
 	}
 	
+	/*
+	 * Método auxiliar para lançar a classe GUI
+	 */
 	public static void main(String[] args) {
 		@SuppressWarnings("unused")
 		GUI g = new GUI();

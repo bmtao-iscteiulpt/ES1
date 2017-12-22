@@ -8,15 +8,21 @@ import org.uma.jmetal.solution.DoubleSolution;
 
 @SuppressWarnings("serial")
 public class AntiSpamFilterProblem extends AbstractDoubleProblem {
-
+	
 	AutomaticCalculator calc = new AutomaticCalculator(); // ler os ficheiros SPAM HAM
     // para cada mensage estabelece a ligaÃ§ao ao vector X, i.e o indice
 	
+	/*
+	 * Construtor da classe AntiSpamFilterProblem - sem atributos
+	 */
 	  public AntiSpamFilterProblem() {
 	    // 10 variables (anti-spam filter rules) by default 
 	    this(335);
 	  }
-
+	  
+	  /*
+	   * Construtor da classe AntiSpamFilterProblem - Recebe um inteiro(Número de variáveis)
+	   */
 	  public AntiSpamFilterProblem(Integer numberOfVariables) {
 	    setNumberOfVariables(numberOfVariables);
 	    setNumberOfObjectives(2);
@@ -34,6 +40,10 @@ public class AntiSpamFilterProblem extends AbstractDoubleProblem {
 	    setUpperLimit(upperLimit);
 	  }
 
+	  /*
+	   * Método que devolve número de Falsos Positivos e Falsos Negativos - Configuração Automática
+	   * @see org.uma.jmetal.problem.Problem#evaluate(java.lang.Object)
+	   */
 	  public void evaluate(DoubleSolution solution) {
 	    double[] fx = new double[getNumberOfObjectives()];
 	    double[] x = new double[getNumberOfVariables()];
@@ -41,7 +51,7 @@ public class AntiSpamFilterProblem extends AbstractDoubleProblem {
 	      x[i] = solution.getVariableValue(i) ;
 	    }
 
-	    fx[0] = calc.evaluateFP(x);  // x varia aqui mas as mensagens foram definidas aquando do construtor
+	    fx[0] = calc.evaluateFP(x);
 	    fx[1] = calc.evaluateFN(x);
 	    
 	    solution.setObjective(0, fx[0]);

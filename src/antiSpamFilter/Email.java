@@ -5,6 +5,11 @@ import java.io.FileNotFoundException;
 import java.util.Map;
 import java.util.Scanner;
 
+	/*
+	 * Classe de apoio à Configuração Manual
+	 * Classe Email que devolve uma lista de todos os mails (seja ham ou spam) e suas respectivas
+	 * regras atribuídas
+	 */
 public class Email {
 
 	public static File fileHam = new File("ham.log");
@@ -16,11 +21,17 @@ public class Email {
 	public int FN=0;
 	public int FP=0;
 	
+	/*
+	 * Contrutor da classe Email
+	 */
 	public Email(File fileName, Map<String, Double> h) {
 		this.fileName = fileName;
 		this.h = h;
 	}
 
+	/*
+	 * Método para calcular e contabilizar Falsos Positivos e Falsos Negativos - Configuração Manual
+	 */
 	public void evaluate() {
 		Scanner sc = null;
 		String s = null;
@@ -58,10 +69,16 @@ public class Email {
 		}	
 	}
 	
+	/*
+	 * Método que devolve o número de Falsos Positivos
+	 */
 	public int getFP() {
 		return FP;
 	}
 	
+	/*
+	 * Método que devolve o número de Falsos Negativos
+	 */
 	public int getFN() {
 		return FN;
 	}

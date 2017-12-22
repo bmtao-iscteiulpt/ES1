@@ -17,11 +17,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-//Classe para não mexer
-
 public class AntiSpamFilterAutomaticConfiguration {
   private static final int INDEPENDENT_RUNS = 5 ;
 
+  /*
+   * Construtor da classe AntiSpamFilterAutomaticConfiguration - Classe de arranque da Configuração Automática
+   */
   public AntiSpamFilterAutomaticConfiguration() {
 	  try {
 		run();
@@ -30,6 +31,9 @@ public class AntiSpamFilterAutomaticConfiguration {
 	}
   }
   
+  /*
+   * Método da classe que lança a função e po~e o AntiSpamFilterProblem e o AutomaticCalculator a correr
+   */
   public void run() throws IOException {
 	  String experimentBaseDirectory = "experimentBaseDirectory";
 

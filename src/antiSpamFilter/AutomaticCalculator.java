@@ -2,10 +2,17 @@ package antiSpamFilter;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import javax.swing.table.TableModel;
+
+	/*
+	 * Classe para calcular e contabilizar número de Falsos Positivos e Falsos Negativos - Configuração Automática
+	 */
 public class AutomaticCalculator {
 
 	private File fileHam = new File("ham.log");
@@ -13,6 +20,9 @@ public class AutomaticCalculator {
 	private File fileRules = new File("rules.cf");
 	private Map<String, Double> h = new HashMap<String, Double>();
 	
+	/*
+	 * Método para calcular Falsos Positivos
+	 */
 	public double evaluateFP(double[] x){
 		fillHashMap(x);
 		
@@ -47,6 +57,9 @@ public class AutomaticCalculator {
 		return FP;
 	}
 	
+	/*
+	 * Métodos para calcular Falsos Negativos
+	 */
 	public double evaluateFN(double[] x){
 		fillHashMap(x);
 		
@@ -80,7 +93,11 @@ public class AutomaticCalculator {
 		}	
 		return FN;
 	}
-	
+
+	/*
+	 * Método para preencher o Map<String, Double> - Map<Regra, Peso>
+	 * Peso atribuído com valores obtidos automaticamente
+	 */
 	public void fillHashMap(double[] x) {
 		Scanner sc = null;
 		String s = null;
